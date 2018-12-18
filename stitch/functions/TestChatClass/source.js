@@ -28,7 +28,7 @@ exports = async function(){
       text: 'slick',
     })
     .then(parseResponseBodyToObject);
-  testUtil.assertEquals(postMessageResponse.ok, true);
+  testUtil.assertEquals('postMessageResponse status', postMessageResponse.ok, true);
   
   // update
   const updateResponse = await chat.update({
@@ -37,7 +37,7 @@ exports = async function(){
       ts: postMessageResponse.ts,
     })
     .then(parseResponseBodyToObject);
-  testUtil.assertEquals(updateResponse.ok, true);
+  testUtil.assertEquals('updateResponse status', updateResponse.ok, true);
   
   // getPermalink
   const getPermalinkResponse = await chat.getPermalink({
@@ -45,7 +45,7 @@ exports = async function(){
       message_ts: updateResponse.ts,
     })
     .then(parseResponseBodyToObject);
-  testUtil.assertEquals(getPermalinkResponse.ok, true);
+  testUtil.assertEquals('getPermalinkResponse status', getPermalinkResponse.ok, true);
   
   // deleteMessage
   const deleteMessageResponse = await chat.deleteMessage({
@@ -53,7 +53,7 @@ exports = async function(){
       ts: updateResponse.ts,    
     })
     .then(parseResponseBodyToObject);
-  testUtil.assertEquals(deleteMessageResponse.ok, true);
+  testUtil.assertEquals('deleteMessageResponse status',deleteMessageResponse.ok, true);
   
   // postEphemeral
   const postEphemeralResponse = await chat.postEphemeral({
@@ -62,7 +62,7 @@ exports = async function(){
       user: testUserId,
     })
     .then(parseResponseBodyToObject);
-  testUtil.assertEquals(postEphemeralResponse.ok, true);
+  testUtil.assertEquals('postEphemeralResponse status', postEphemeralResponse.ok, true);
   
   
   // meMessage
@@ -71,14 +71,12 @@ exports = async function(){
       text: 'me message'
     })
     .then(parseResponseBodyToObject);
-  testUtil.assertEquals(meMessageResponse.ok, true);
+  testUtil.assertEquals('meMessageResponse status', meMessageResponse.ok, true);
   
   const deleteMeMessageResponse = await chat.deleteMessage({
       channel: testChannel,
       ts: meMessageResponse.ts,
     })
     .then(parseResponseBodyToObject);
-  testUtil.assertEquals(deleteMeMessageResponse.ok, true);
-  
-  return 0;
+  testUtil.assertEquals('deleteMeMessageResponse status', deleteMeMessageResponse.ok, true);
 }

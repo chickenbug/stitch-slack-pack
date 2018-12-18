@@ -5,7 +5,7 @@
     "deployment_model": "GLOBAL",
     "security": {},
     "hosting": {
-        "enabled": false,
+        "enabled": true,
         "app_default_domain": "slack-pack-caalv.mongodbstitch.com"
     }
 }

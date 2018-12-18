@@ -5,9 +5,9 @@
 
 // TestUtil contains utility methods needed for test functions
 class TestUtil{
-  static assertEquals(expected, received) {
+  static assertEquals(resourceName, expected, received) {
     if(expected !== received) {
-      throw `Error: expected '${expected}'; received '${received}'`;
+      throw `Error comparing '${resourceName}': expected '${expected}'; received '${received}'`;
     }
   }
 }

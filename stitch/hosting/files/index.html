@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <script src="https://s3.amazonaws.com/stitch-sdks/js/bundles/4.0.0/stitch.js"></script>
+    <script>
+      // Initialize the App Client
+      const client = stitch.Stitch.initializeDefaultAppClient("slack-pack-caalv");
+      // Get a MongoDB Service Client
+      const mongodb = client.getServiceClient(
+        stitch.RemoteMongoClient.factory,
+        "cluster"
+      );
+      // Get a reference to the blog database
+      const db = mongodb.db("stitch-slack-pack");
+      function displayStatus() {
+        db.collection("testing")
+          .find({})
+          .asArray()
+          .then(docs => {
+            const html = docs.map(({ name, error }) => `<div>
+              <span class="test-name">${name}:</span>
+              <span class="test-results">${error || '✅'}</span>
+              </div>`
+            );
+            document.getElementById("status").innerHTML = html;
+          })
+      }
+      function displayStatusOnLoad() {
+        client.auth
+          .loginWithCredential(new stitch.AnonymousCredential())
+          .then(displayStatus)
+          .catch(console.error);
+      }
+    </script>
+    <style>
+      body {
+        background-color: #F5F6F7;
+        color: #494747;
+        font-family: Helvetica, sans-serif;
+      }
+      h1 {
+        font-size: 60pt;
+        font-weight: 200;
+        text-align:center;
+      }
+      .content{
+        font-weight: 200;
+        text-align:center;
+      }
+      .test-name{
+        font-size: 20pt;
+        font-weight: bold;
+        padding-right: 5px;
+      }
+      .test-results{
+        font-size: 16pt;
+      }
+    </style>
+  </head>
+
+  <body onLoad="displayStatusOnLoad()">
+    <h1>Stitch Slack Pack Testing Status:</h2>
+    <div class="content">
+      <div id="status"/>
+    <div/>
+  </body>
+
