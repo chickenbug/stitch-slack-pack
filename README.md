@@ -12,6 +12,10 @@ const SlackClass = context.functions.execute('SlackClass');
 const slack = new SlackClass();
 slack.Chat.postMessage(...);
 ```
+
+## Testing
+Testing is done by running API requests against the Slack API for a test workspace. Tests are run after every push and current test status can be seen [here]https://slack-pack-caalv.mongodbstitch.com)
+
 ## Implementation
 The key components for the Slack integration are several Stitch private functions that return classes that can send requests the Slack Web API. 
 The functions to note are:
@@ -22,5 +26,5 @@ The functions to note are:
 
 
 The key components for the continuous integration are:
-* A github webhook called `testRunner` that runs tests after every push and updates an atlas collection with the result
+* A github webhook called `runTests` that runs tests after every push and updates an atlas collection with the result
 * A simple static hosting page that displays the results of the test
