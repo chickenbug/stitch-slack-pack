@@ -4,15 +4,13 @@
  *
 */
 
-const testAuthToken = '';
-const testChannel = '';
-const testUserId = '';
-
-const parseResponseBodyToObject = resp => EJSON.parse(resp.body.text());
-
 exports = async function(){
   // setup 
   const testUtil = context.functions.execute('TestUtilClass');
+  
+  const testAuthToken = context.values.get('TestAuthToken');
+  const testChannel = context.values.get('TestChannel');
+  const testUserId = context.values.get('TestUserId');
   
   const ChatClass = context.functions.execute('ChatClass');
   const chat = new ChatClass();
@@ -27,7 +25,7 @@ exports = async function(){
       channel: testChannel,
       text: 'slick',
     })
-    .then(parseResponseBodyToObject);
+    .then(testUtil.parseResponseBodyToObject);
   testUtil.assertEquals('postMessageResponse status', postMessageResponse.ok, true);
   
   // update
@@ -36,7 +34,7 @@ exports = async function(){
       text: 'slack ya doof',
       ts: postMessageResponse.ts,
     })
-    .then(parseResponseBodyToObject);
+    .then(testUtil.parseResponseBodyToObject);
   testUtil.assertEquals('updateResponse status', updateResponse.ok, true);
   
   // getPermalink
@@ -44,7 +42,7 @@ exports = async function(){
       channel: testChannel,
       message_ts: updateResponse.ts,
     })
-    .then(parseResponseBodyToObject);
+    .then(testUtil.parseResponseBodyToObject);
   testUtil.assertEquals('getPermalinkResponse status', getPermalinkResponse.ok, true);
   
   // deleteMessage
@@ -52,7 +50,7 @@ exports = async function(){
       channel: testChannel,
       ts: updateResponse.ts,    
     })
-    .then(parseResponseBodyToObject);
+    .then(testUtil.parseResponseBodyToObject);
   testUtil.assertEquals('deleteMessageResponse status',deleteMessageResponse.ok, true);
   
   // postEphemeral
@@ -61,7 +59,7 @@ exports = async function(){
       text: 'only you',
       user: testUserId,
     })
-    .then(parseResponseBodyToObject);
+    .then(testUtil.parseResponseBodyToObject);
   testUtil.assertEquals('postEphemeralResponse status', postEphemeralResponse.ok, true);
   
   
@@ -70,13 +68,13 @@ exports = async function(){
       channel: testChannel,
       text: 'me message'
     })
-    .then(parseResponseBodyToObject);
+    .then(testUtil.parseResponseBodyToObject);
   testUtil.assertEquals('meMessageResponse status', meMessageResponse.ok, true);
   
   const deleteMeMessageResponse = await chat.deleteMessage({
       channel: testChannel,
       ts: meMessageResponse.ts,
     })
-    .then(parseResponseBodyToObject);
+    .then(testUtil.parseResponseBodyToObject);
   testUtil.assertEquals('deleteMeMessageResponse status', deleteMeMessageResponse.ok, true);
 }

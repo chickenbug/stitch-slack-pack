@@ -21,7 +21,7 @@ class Util {
       encodeBodyAsJSON: true,
     });
   }
-  
+
   // getWithAuthToken sets a http GET request with `application/x-www-form-urlencoded`
   // content type and the given token as the Authorization Bearer token
   static getWithAuthToken(url, token) {
@@ -37,8 +37,10 @@ class Util {
   static constructQuery(parameters) {
     let query = '';
     for (const key in parameters) {
-      query += `${key}=${parameters[key]}&`;
+      query += `${key}=${encodeURIComponent(parameters[key])}&`;
     }
+    
+    // delete trailing '&'
     if (query !== '') {
       query = query.slice(0,-1);
     }

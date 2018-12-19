@@ -9,7 +9,9 @@
         stitch.RemoteMongoClient.factory,
         "cluster"
       );
-      // Get a reference to the blog database
+
+      const displayError = error => `<span class="test-results-error">${error}</span>`
+
       const db = mongodb.db("stitch-slack-pack");
       function displayStatus() {
         db.collection("testing")
@@ -18,7 +20,9 @@
           .then(docs => {
             const html = docs.map(({ name, error }) => `<div>
               <span class="test-name">${name}:</span>
-              <span class="test-results">${error || '✅'}</span>
+              <span class="test-results">${
+                error ? displayError(error) :'<span class="test-results-success">pass</span>'
+              }</span>
               </div>`
             );
             document.getElementById("status").innerHTML = html;
@@ -53,6 +57,14 @@
       }
       .test-results{
         font-size: 16pt;
+      }
+      .test-results-success{
+        color: darkgreen;
+        font-weight: bold;
+      }
+      .test-results-error{
+        color: darkred;
+        font-weight: bold;
       }
     </style>
   </head>

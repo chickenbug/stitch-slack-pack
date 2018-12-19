@@ -5,11 +5,16 @@
 
 // TestUtil contains utility methods needed for test functions
 class TestUtil{
-  static assertEquals(resourceName, expected, received) {
+  static assertEquals(resourceName, received, expected) {
     if(expected !== received) {
-      throw `Error comparing '${resourceName}': expected '${expected}'; received '${received}'`;
+      throw `Error comparing '${resourceName}': received '${received}; expected '${expected}'`;
     }
   }
+  
+  static parseResponseBodyToObject(resp) {
+    return EJSON.parse(resp.body.text());
+  }
+
 }
 
 exports = function(){
