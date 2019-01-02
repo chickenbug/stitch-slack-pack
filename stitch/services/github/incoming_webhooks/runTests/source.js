@@ -1,21 +1,21 @@
 
-
 exports = function() {
   const atlasCluster = context.services.get('cluster');
-  const collection = atlasCluster.db('stitch-slack-pack').collection('testing');
-  let allTestsPass = true
+  const testingCollection = atlasCluster.db('stitch-slack-pack').collection('testing');
+  const testsLastRunCollection = atlasCluster.db('stitch-slack-pack').collection('testsLastRun');
+  let allTestsPass = true;
   
   const runTestAndPostResults = testName => {
     console.log(`Running ${testName}`);
     context.functions.execute(testName).then(() => {
-      collection.updateOne(
+      testingCollection.updateOne(
         { name: testName },
         { '$set': { error: '' } },
         {upsert: true},
       );
       console.log(`${testName} succeded`);
     }).catch(testError => {
-      collection.updateOne(
+      testingCollection.updateOne(
         { name: testName },
         { '$set': { error: testError } },
         {upsert: true},
@@ -24,8 +24,16 @@ exports = function() {
       allTestsPass = false;
     });
   };
-
+  
   runTestAndPostResults('TestChat');
   runTestAndPostResults('TestSearch');
-  runTestAndPostResults('TestSlack')
+  runTestAndPostResults('TestSlack');
+  runTestAndPostResults('TestChannels');
+  runTestAndPostResults('TestConversations');
+  
+  testsLastRunCollection.updateOne(
+    { lastRun: { '$exists': true } },
+    { '$set': { lastRun: Date.now() } },
+    {upsert: true},
+  ).catch(console.error);
 };

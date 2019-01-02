@@ -13,82 +13,83 @@ class Chat {
   }
   
   deleteMessage({ token, channel, ts, options }) {
-    const url = 'https://slack.com/api/chat.delete';
+    const method = 'chat.delete';
     const body = {
       channel,
       ts,
       ...options
     };
-    return this.postJSONWithAuthToken(url, body, token);
+    return this.postJSONWithAuthToken(method, body, token);
   }
   
   getPermalink({ token, channel, message_ts }) {
-    const baseURL = 'https://slack.com/api/chat.getPermalink';
-    const queryString = this.util.constructQuery({ channel, message_ts});
-    const url = `${baseURL}?${queryString}`;
-    return this.getWithAuthToken(url, token);
+    const method = 'chat.getPermalink';
+    const query = {
+      channel,
+      message_ts,
+    };
+    return this.getWithAuthToken(method, query, token);
   }
   
   meMessage({ token, channel, text }) {
-    const url = 'https://slack.com/api/chat.meMessage';
+    const method = 'chat.meMessage';
     const body = {
       channel,
       text,
     };
-    return this.postJSONWithAuthToken(url, body, token);
+    return this.postJSONWithAuthToken(method, body, token);
   }
   
   postEphemeral({ token, channel, text, user, options }) {
-    const url = 'https://slack.com/api/chat.postEphemeral';
+    const method = 'chat.postEphemeral';
     const body = {
       channel,
       text,
       user,
       ...options,
     };
-    return this.postJSONWithAuthToken(url, body, token);
+    return this.postJSONWithAuthToken(method, body, token);
   }
   
   postMessage({ token, channel, text, options }){
-    const url = 'https://slack.com/api/chat.postMessage';
+    const method = 'chat.postMessage';
     const body = { 
       channel,
       text,
       ...options,
     };
-    return this.postJSONWithAuthToken(url, body, token);
+    return this.postJSONWithAuthToken(method, body, token);
   }
   
   unfurl({ token, channel, ts, unfurls, options }) {
-    const url = 'https://slack.com/api/chat.unfurl';
+    const method = 'chat.unfurl';
     const body = {
       channel,
       ts,
       unfurls,
       ...options
     }
-    return this.postJSONWithAuthToken(url, body, token);
+    return this.postJSONWithAuthToken(method, body, token);
   }
   
   update({ token, channel, text, ts, options }) {
-    const url = 'https://slack.com/api/chat.update';
+    const method = 'chat.update';
     const body = {
       channel,
       text,
       ts,
       ...options,
     }
-    return this.postJSONWithAuthToken(url, body, token);
+    return this.postJSONWithAuthToken(method, body, token);
   }
   
   // UTILITY
-  
-  postJSONWithAuthToken(url, body, token) {
-    return this.util.postJSONWithAuthToken(url, body, token || this.authToken);
+  postJSONWithAuthToken(method, body, token) {
+    return this.util.postJSONWithAuthToken(method, body, token || this.authToken);
   }
   
-  getWithAuthToken(url, token) {
-    return this.util.getWithAuthToken(url, token || this.authToken);
+  getWithAuthToken(method, query, token) {
+    return this.util.getWithAuthToken(method, query, token || this.authToken);
   }
 }
 

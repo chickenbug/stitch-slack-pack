@@ -13,24 +13,23 @@ class Search {
   }
   
   all({ token, query, options }) {
-    const baseURL = 'https://slack.com/api/search.all';
-    return this.search(baseURL, query, options, token);
+    const method = 'search.all';
+    return this.search(method, query, options, token);
   }
   
   files({ token, query, options }) {
-    const baseURL = 'https://slack.com/api/search.files';
-    return this.search(baseURL, query, options, token);
+    const method = 'search.files';
+    return this.search(method, query, options, token);
   }
   
   messages({ token, query, options }) {
-    const baseURL = 'https://slack.com/api/search.messages';
-    return this.search(baseURL, query, options, token);
+    const method = 'search.messages';
+    return this.search(method, query, options, token);
   }
   
-  search(baseURL, query, options, token) {
-    const queryString = this.util.constructQuery({ query, ...options });
-    const url = `${baseURL}?${queryString}`;
-    return this.util.getWithAuthToken(url, token || this.authToken);
+  search(method, query, options, token) {
+    const queryObject = { query, ...options };
+    return this.util.getWithAuthToken(method, queryObject, token || this.authToken);
   }
 }
 

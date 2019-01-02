@@ -7,9 +7,14 @@ class Slack {
   constructor() {
     const ChatClass = context.functions.execute('ChatClass');
     const SearchClass = context.functions.execute('SearchClass');
+    const ChannelsClass = context.functions.execute('ChannelsClass');
+    const ConversationsClass = context.functions.execute('ConversationsClass');
     
     this.Chat = new ChatClass();
     this.Search = new SearchClass();
+    this.Channels = new ChannelsClass();
+    this.Converstions = new ConversationsClass();
+    
     this.Util = context.functions.execute('UtilClass');
   }
   
@@ -17,12 +22,14 @@ class Slack {
     this.authToken = token;
     this.Chat.setAuthToken(token);
     this.Search.setAuthToken(token);
+    this.Channels.setAuthToken(token);
+    this.Converstions.setAuthToken(token);
   }
   
   // apiTest sends a request to the api.test endpoint
   apiTest({ token, body }) {
-    const url = 'https://slack.com/api/api.test';
-    return this.Util.postJSONWithAuthToken(url, body, token || this.authToken);
+    const method = 'api.test';
+    return this.Util.postJSONWithAuthToken(method, body, token || this.authToken);
   }
   
   

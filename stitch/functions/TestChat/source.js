@@ -1,6 +1,6 @@
 /**
  * TestChat runs calls all ChatClass methods and sees if they work as expected.
- * It returns 0 on success and throws an error if there is a failure.
+ * It returns a rejected promise on failure.
  *
 */
 

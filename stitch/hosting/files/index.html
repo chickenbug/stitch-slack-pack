@@ -28,9 +28,20 @@
             document.getElementById("status").innerHTML = html;
           })
       }
+      function displayLastRun() {
+        db.collection("testsLastRun")
+          .find({})
+          .asArray()
+          .then(( docs ) => {
+            const lastRun = docs[0].lastRun;
+            const html = `<span>Last Run: ${new Date(lastRun)}</span>`
+            document.getElementById("last-run").innerHTML = html;
+          })
+      }
       function displayStatusOnLoad() {
         client.auth
           .loginWithCredential(new stitch.AnonymousCredential())
+          .then(displayLastRun)
           .then(displayStatus)
           .catch(console.error);
       }
@@ -41,10 +52,11 @@
         color: #494747;
         font-family: Helvetica, sans-serif;
       }
-      h1 {
+      h3 {
         font-size: 60pt;
         font-weight: 200;
-        text-align:center;
+        text-align: center;
+        margin-block-end: 0.5em;
       }
       .content{
         font-weight: 200;
@@ -66,13 +78,22 @@
         color: darkred;
         font-weight: bold;
       }
+
+      #last-run{
+        text-align: center;
+        font-size: 12pt;
+        color: darkblue;
+      }
     </style>
   </head>
 
   <body onLoad="displayStatusOnLoad()">
-    <h1>Stitch Slack Pack Testing Status:</h2>
+    <h3>
+      Stitch Slack Pack Testing Status:
+      <div id="last-run"></div>
+    </h3>
     <div class="content">
-      <div id="status"/>
+      <div id="status"></div>
     <div/>
   </body>
 
