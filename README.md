@@ -2,7 +2,7 @@
 This is a proof of concept for importable, continiously tested [Slack WebAPI](https://api.slack.com/web) integration for for MongoDB Stitch apps made using only Stitch entities.
 
 ## Usage Instructions
-To use, import all functions that end with `Class` into your stitch application using `stitch-cli` with `--stategy=merge`. You will also need to have a [http](https://docs.mongodb.com/stitch/services/http/) service set up in order for them to work properly. 
+To use, import all functions that end with `Class` and the `slack_http` service into your stitch application using `stitch-cli` with `--stategy=merge`.
 
 For more information on the stitch cli see [here](https://docs.mongodb.com/stitch/import-export/stitch-cli-reference). 
 
@@ -30,7 +30,7 @@ The functions to note are:
 * GroupsClass
 * UtilClass
 
-`SlackClass` contains all classes, however if needed the individual classes can be used modularly.
+`SlackClass` contains all classes, however if needed the individual classes can also be used modularly.
 
 The key components for the continuous integration are:
 * A github webhook called `runTests` that runs tests after every push and updates an atlas collection with the result
