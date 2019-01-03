@@ -1,5 +1,5 @@
 {
-    "name": "http",
+    "name": "slack_http",
     "type": "http",
     "config": {},
     "version": 1

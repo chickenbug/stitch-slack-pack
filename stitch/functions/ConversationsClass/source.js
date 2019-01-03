@@ -1,3 +1,8 @@
+// ConversationsClass returns the class definition for Conversations so that it can be used in other functions.
+// Since functions and classes can only be represented as BSON.Code in EJSON. This class can not
+// be returned to any client, including the Debug Console. 
+
+// Conversations contains functions that use the Slack WebAPI converstations endpoints
 class Converstions {
   constructor() {
     this.Util = context.functions.execute('UtilClass');

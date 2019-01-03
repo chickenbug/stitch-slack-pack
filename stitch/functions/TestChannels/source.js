@@ -4,6 +4,9 @@ exports = async function(){
   const testBotId = context.values.get('TestBotId');
   
   const TestUtil = context.functions.execute('TestUtilClass');
+  const ChatClass = context.functions.execute('ChatClass');
+  const Chat = new ChatClass();
+  Chat.setAuthToken(testAuthToken);
   
   const ChannelsClass = context.functions.execute('ChannelsClass');
   const Channels = new ChannelsClass();
@@ -53,8 +56,27 @@ exports = async function(){
     .then(TestUtil.parseResponseBodyToObject);
   TestUtil.assertEquals('channelsSetTopicResponse status', channelsSetTopicResponse.ok, true);
   
-  //TODO: add channelReplies and channelMark test after I can create threads
+  const channelPostResponse = await Chat.postMessage({
+      channel: channelId,
+      text: 'channel your energy',
+    })
+    .then(TestUtil.parseResponseBodyToObject);
+  TestUtil.assertEquals('channelPostResponse status', channelPostResponse.ok, true);
+
+  const channelsMarkResponse = await Channels.mark({
+      channel: channelId,
+      ts: channelPostResponse.ts,
+    })
+    .then(TestUtil.parseResponseBodyToObject);
+  TestUtil.assertEquals('channelsMarkResponse status', channelsMarkResponse.ok, true);
   
+  const channelsRepliesResponse = await Channels.replies({
+      channel: channelId,
+      thread_ts: channelPostResponse.ts,
+    })
+    .then(TestUtil.parseResponseBodyToObject);
+  TestUtil.assertEquals('channelsRepliesResponse status', channelsRepliesResponse.ok, true);
+
   const channelsLeaveResponse = await Channels.leave({
       channel: channelId,
     })

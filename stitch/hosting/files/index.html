@@ -18,13 +18,13 @@
           .find({})
           .asArray()
           .then(docs => {
-            const html = docs.map(({ name, error }) => `<div>
+            const html = docs.map(({ name, error }) => `<div class="test-run">
               <span class="test-name">${name}:</span>
               <span class="test-results">${
                 error ? displayError(error) :'<span class="test-results-success">pass</span>'
               }</span>
               </div>`
-            );
+            ).join('');
             document.getElementById("status").innerHTML = html;
           })
       }
@@ -66,6 +66,9 @@
         font-size: 20pt;
         font-weight: bold;
         padding-right: 5px;
+      }
+      .test-run{
+        padding: 5px;
       }
       .test-results{
         font-size: 16pt;

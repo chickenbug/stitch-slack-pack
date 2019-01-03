@@ -1,9 +1,3 @@
-/**
- * TestChat runs calls all ChatClass methods and sees if they work as expected.
- * It returns a rejected promise on failure.
- *
-*/
-
 exports = async function(){
   // setup 
   const testUtil = context.functions.execute('TestUtilClass');
@@ -15,10 +9,6 @@ exports = async function(){
   const ChatClass = context.functions.execute('ChatClass');
   const chat = new ChatClass();
   chat.setAuthToken(testAuthToken);
-  
-  const SearchClass = context.functions.execute('SearchClass');
-  const search = new SearchClass();
-  search.setAuthToken(testAuthToken);
   
   // postMessage
   const postMessageResponse = await chat.postMessage({

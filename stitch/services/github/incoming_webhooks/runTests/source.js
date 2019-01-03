@@ -30,6 +30,11 @@ exports = function() {
   runTestAndPostResults('TestSlack');
   runTestAndPostResults('TestChannels');
   runTestAndPostResults('TestConversations');
+  runTestAndPostResults('TestPins');
+  runTestAndPostResults('TestReminders');
+  runTestAndPostResults('TestIM');
+  runTestAndPostResults('TestGroups');
+
   
   testsLastRunCollection.updateOne(
     { lastRun: { '$exists': true } },

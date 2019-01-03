@@ -3,6 +3,9 @@ exports = async function(){
   const testBotId = context.values.get('TestBotId');
   
   const TestUtil = context.functions.execute('TestUtilClass');
+  const ChatClass = context.functions.execute('ChatClass');
+  const Chat = new ChatClass();
+  Chat.setAuthToken(testAuthToken);
   
   const ConversationsClass = context.functions.execute('ConversationsClass');
   const Conversations = new ConversationsClass();
@@ -54,8 +57,20 @@ exports = async function(){
     .then(TestUtil.parseResponseBodyToObject);
   TestUtil.assertEquals('conversationsRenameResponse status', conversationsRenameResponse.ok, true);
   
-  //TODO: add conversationsReplies test after I can create threads
+  const conversationsPostResponse = await Chat.postMessage({
+      channel: channelId,
+      text: 'convert covertly',
+    })
+    .then(TestUtil.parseResponseBodyToObject);
+  TestUtil.assertEquals('conversationsPostResponse status', conversationsPostResponse.ok, true);
   
+  const conversationsRepliesResponse = await Conversations.leave({
+      channel: channelId,
+      thread_ts: conversationsPostResponse.ts,
+    })
+    .then(TestUtil.parseResponseBodyToObject);
+  TestUtil.assertEquals('conversationsRepliesResponse status', conversationsRepliesResponse.ok, true);  
+
   const conversationsLeaveResponse = await Conversations.leave({
       channel: channelId,
     })

@@ -8,7 +8,7 @@ class Util {
   // postJSONWithAuthToken sends a http POST request with `application/JSON`
   // content type and the given token as the Authorization Bearer token
   static postJSONWithAuthToken(method, body, token) {
-    const http = context.services.get("http");
+    const http = context.services.get("slack_http");
     const url = `https://slack.com/api/${method}`;
     return http.post({
       url,
@@ -24,7 +24,7 @@ class Util {
   // getWithAuthToken sets a http GET request with `application/x-www-form-urlencoded`
   // content type and the given token as the Authorization Bearer token
   static getWithAuthToken(method, query, token) {
-    const http = context.services.get("http");
+    const http = context.services.get("slack_http");
     const url = `https://slack.com/api/${method}?${this.constructQuery(query)}`;
     return http.get({
       url,

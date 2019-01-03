@@ -1,0 +1,7 @@
+{
+    "name": "SlackActions",
+    "actions": [
+        "get",
+        "post"
+    ]
+}
