@@ -12,7 +12,7 @@ class Slack {
     const PinsClass = context.functions.execute('PinsClass');
     const RemindersClass = context.functions.execute('RemindersClass');
     const IMClass = context.functions.execute('IMClass');
-    const GroupClass = context.functions.execute('GroupsClass');
+    const GroupsClass = context.functions.execute('GroupsClass');
     
     this.Chat = new ChatClass();
     this.Search = new SearchClass();
