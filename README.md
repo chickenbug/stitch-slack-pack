@@ -14,7 +14,7 @@ slack.Chat.postMessage(...);
 ```
 
 ## Testing
-Testing is done by running API requests against the Slack API for a test workspace. Tests are run after every push and current test status can be seen [here]https://slack-pack-caalv.mongodbstitch.com)
+Testing is done by running API requests against the Slack API for a test workspace. Tests are run after every push and current test status can be seen [here](https://slack-pack-caalv.mongodbstitch.com)
 
 ## Implementation
 The key components for the Slack integration are several Stitch private functions that return classes that can send http requests the Slack Web API. 
