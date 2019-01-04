@@ -1,5 +1,5 @@
 # stitch-slack-pack
-This is a proof of concept for importable, continiously tested [Slack WebAPI](https://api.slack.com/web) integration for for MongoDB Stitch apps made using only Stitch entities.
+This is a proof of concept for importable, continuously tested [Slack WebAPI](https://api.slack.com/web) integration for for MongoDB Stitch apps made using only Stitch entities.
 
 ## Usage Instructions
 To use, import all functions that end with `Class` and the `slack_http` service into your stitch application using `stitch-cli` with `--stategy=merge`.
